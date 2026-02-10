@@ -1,93 +1,139 @@
-* { box-sizing: border-box; }
-
-html, body {
-  height: 100%;
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
 }
 
+html,
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
-  min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Arial, sans-serif;
-  background: transparent; /* ВАЖНО: фон от canvas */
-  color: #ffffff;
-  overflow: hidden; /* чтобы фон красиво, без скролла */
 }
 
+/* ===== BASE ===== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Arial, sans-serif;
+  background: transparent; /* фон рисует canvas */
+  color: #ffffff;
+
+  /* НИКАКОГО СКРОЛЛА */
+  overflow: hidden;
+}
+
+/* ===== LAYOUT ===== */
+/*
+  ВАЖНО:
+  - grid = идеальный центр
+  - padding = боковые поля
+*/
 .wrapper {
   position: relative;
-  z-index: 2; /* поверх canvas */
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  z-index: 2;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  /* БОКОВЫЕ ПОЛЯ + безопасные зоны */
+  padding:
+    clamp(16px, 5vh, 48px)   /* сверху / снизу */
+    clamp(16px, 5vw, 32px);  /* слева / справа */
 }
 
+/* ===== CARD ===== */
 .card {
   width: 100%;
   max-width: 420px;
+
+  /* защита от переполнения по высоте */
+  max-height: 100%;
+
+  padding:
+    clamp(24px, 4vh, 36px)
+    clamp(18px, 4vw, 28px);
+
   background: linear-gradient(180deg, #16171c, #111216);
   border-radius: 20px;
-  padding: 36px 28px;
   text-align: center;
+
+  border: 1px solid rgba(255,255,255,0.06);
   box-shadow:
     0 20px 40px rgba(0,0,0,0.45),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.06);
+    inset 0 1px 0 rgba(255,255,255,0.04);
+
   backdrop-filter: blur(8px);
 }
 
-.avatar {
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ffffff, #cfcfcf);
-  color: #000;
+/* ===== LOGO ===== */
+.logo {
+  width: clamp(72px, 10vh, 96px);
+  height: clamp(72px, 10vh, 96px);
+
+  margin: 0 auto clamp(16px, 3vh, 20px);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 1px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
 }
 
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ===== TEXT ===== */
 h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: clamp(22px, 3.2vh, 26px);
   font-weight: 650;
-  letter-spacing: 0.2px;
 }
 
 .role {
-  margin: 8px 0 14px;
-  font-size: 16px;
+  margin:
+    clamp(6px, 1.5vh, 8px)
+    0
+    clamp(10px, 2vh, 14px);
+  font-size: clamp(14px, 2.2vh, 16px);
   opacity: 0.85;
 }
 
 .company {
+  margin-bottom: clamp(18px, 4vh, 28px);
   font-size: 14px;
   opacity: 0.65;
-  margin-bottom: 28px;
 }
 
+/* ===== ACTIONS ===== */
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: clamp(10px, 2vh, 12px);
 }
 
+/* ===== BUTTONS ===== */
 .btn {
-  padding: 14px 14px;
+  width: 100%;
+  padding: clamp(12px, 2.5vh, 14px);
+
   border-radius: 12px;
-  background: rgba(255,255,255,0.09);
-  color: #fff;
-  text-decoration: none;
+  font-size: 15px;
   font-weight: 560;
-  transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
-  backdrop-filter: blur(6px);
+  text-decoration: none;
+
+  color: #ffffff;
+  background: rgba(255,255,255,0.09);
   border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(6px);
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    opacity 0.15s ease;
 }
 
 .btn:hover {
@@ -96,28 +142,34 @@ h1 {
 }
 
 .btn:active {
-  transform: translateY(0px);
+  transform: translateY(0);
   opacity: 0.9;
 }
 
+/* ===== PRIMARY ===== */
 .btn.primary {
   background: #ffffff;
   color: #000000;
-  border: 1px solid rgba(255,255,255,0.9);
+  border-color: rgba(255,255,255,0.9);
 }
 
 .btn.primary:hover {
   background: #f2f2f2;
 }
 
-.hint {
-  margin-top: 18px;
-  font-size: 12px;
-  opacity: 0.55;
+/* ===== ADD CONTACT ===== */
+.add-contact {
+  margin-top: clamp(12px, 3vh, 16px);
+  text-align: center;
 }
 
-/* мобильная аккуратность */
-@media (max-width: 360px) {
-  .card { padding: 28px 18px; }
-  h1 { font-size: 24px; }
+.add-contact a {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+}
+
+.add-contact a:hover {
+  color: #ffffff;
 }
