@@ -32,7 +32,7 @@
 
       <div class="actions" role="list">
         <a role="listitem" href="tel:+79269405598" class="btn primary">Позвонить</a>
-        <a role="listitem" href="mailto:svetlana.kazakova@height-agency.ru" class="btn">Написать на почту</a>
+        <a role="listitem" href="#" class="btn" onclick="copyEmail(event)">Скопировать почту</a>
         <a role="listitem" href="https://t.me/SvetlankaKS" target="_blank" rel="noopener noreferrer" class="btn">Telegram</a>
       </div>
 
@@ -40,7 +40,17 @@
   </main>
 
   <script src="animated-background.js"></script>
+  <script>
+    function copyEmail(e) {
+      e.preventDefault();
+
+      navigator.clipboard
+        .writeText("svetlana.kazakova@height-agency.ru")
+        .then(() => alert("Почта скопирована"));
+    }
+  </script>
 </body>
 </html>
+
 
 
